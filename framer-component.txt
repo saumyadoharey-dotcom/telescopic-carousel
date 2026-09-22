@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { addPropertyControls, ControlType } from "framer";
 
 /**
  * Telescope Carousel Framer Code Component
@@ -270,4 +271,45 @@ export default function TelescopeCarousel(props) {
       )}
     </div>
   );
+}
+
+// Framer Canvas Property Controls (Safe check for Framer environment)
+if (typeof addPropertyControls === "function") {
+  addPropertyControls(TelescopeCarousel, {
+    accentColor: {
+      type: ControlType.Color,
+      title: "Accent",
+      defaultValue: "#FF3366",
+    },
+    backgroundColor: {
+      type: ControlType.Color,
+      title: "Background",
+      defaultValue: "#000000",
+    },
+    showDetailPanel: {
+      type: ControlType.Boolean,
+      title: "Show Preview",
+      defaultValue: true,
+    },
+    initialActiveIndex: {
+      type: ControlType.Number,
+      title: "Initial Index",
+      defaultValue: 0,
+      min: 0,
+    },
+    items: {
+      type: ControlType.Array,
+      title: "Works",
+      control: {
+        type: ControlType.Object,
+        controls: {
+          title: { type: ControlType.String, title: "Title" },
+          category: { type: ControlType.String, title: "Category" },
+          year: { type: ControlType.String, title: "Year" },
+          description: { type: ControlType.String, title: "Description" },
+          image: { type: ControlType.Image, title: "Image" },
+        },
+      },
+    },
+  });
 }
